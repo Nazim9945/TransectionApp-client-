@@ -1,10 +1,11 @@
 interface Props{
-    label:string
+    label:string,
+    onsubmit:()=>void
 }
-const Button = ({label}:Props) => {
+const Button = ({label,onsubmit}:Props) => {
   return (
    
-        <button className="bg-black text-white p-2 font-semibold rounded-md">
+        <button onClick={()=>onsubmit()} className="bg-black text-white p-2 font-semibold rounded-md">
             {label}
         </button>
     
