@@ -22,7 +22,7 @@ const DashBoard = () => {
   const[balance,setbalance]=useState("")
   const[users,setuser]=useState<dataobj[]>()
   const navigate=useNavigate()
- 
+ let timeid:number;
   useEffect(()=>{
     axios.get<userbalance>(`${commonUrl}/account/balance`,{
       headers:{
@@ -31,19 +31,20 @@ const DashBoard = () => {
     }).then(res=>setbalance(res.data.balance))
   },[])
   useEffect(()=>{
-    const timeid=setTimeout(()=>{
-       axios
-         .get<fetchResponseUser>(
-           `${commonUrl}/user/getallusers?filter=${value}`,
-           {
-             headers: {
-               token: localStorage.getItem("token"),
-             },
-           }
-         )
-         .then((res) => setuser(res.data.response));
-
-    },500)
+    if(value){
+      timeid = setTimeout(() => {
+        axios
+          .get<fetchResponseUser>(
+            `${commonUrl}/user/getallusers?filter=${value}`,
+            {
+              headers: {
+                token: localStorage.getItem("token"),
+              },
+            }
+          )
+          .then((res) => setuser(res.data.response));
+      }, 500);
+    }
     return ()=>clearTimeout(timeid)
    
   },[value])
