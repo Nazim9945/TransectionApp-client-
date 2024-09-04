@@ -55,8 +55,8 @@ const SignUp = () => {
       />
       <BottomWarning label="Signin" />
       <Button onsubmit={()=>(
-      axios.post(`${commonUrl}/user/signup`,formdata).then(()=>{
-        navigate('/dashboard');
+      axios.post(`${commonUrl}/user/signup`,formdata).then(({data})=>{
+        navigate(`/dashboard?Hi=${data.firstName}`)
       })
        
         

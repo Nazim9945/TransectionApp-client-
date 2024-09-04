@@ -1,13 +1,13 @@
 import Avatar from "./Avatar";
 
-const NavBar = () => {
+const NavBar = ({firstName}:{firstName:string}) => {
   return (
     <div className="flex justify-between p-5 items-center bg-slate-100 border-b-2 text-2xl">
       <div className=" font-semibold">Payments App</div>
       <div>
         <div>
-          Hello, User
-         <Avatar latter={"U"}/>
+          Hello, {firstName}
+         <Avatar latter={firstName[0]}/>
         </div>
       </div>
     </div>

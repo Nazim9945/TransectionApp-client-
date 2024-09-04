@@ -3,7 +3,7 @@ import Avatar from "../components/Avatar";
 import Button from "../components/Button";
 import Inputfield from "../components/Inputfield";
 import NavBar from "../components/NavBar";
-import {  useNavigate } from "react-router-dom";
+import {  useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { commonUrl } from "../config/commonUrl";
 interface dataobj{
@@ -15,11 +15,13 @@ interface fetchResponseUser{
   response:dataobj[]
 }
 interface userbalance{
-  balance:string
+  balance:string,
 }
 const DashBoard = () => {
   const[value,setValue]=useState("")
-  const[balance,setbalance]=useState("")
+  const[searchParams]=useSearchParams()
+  const firstName=searchParams.get("Hi") || ""
+  const[useraccount,setuseraccount]=useState<userbalance>({} as userbalance)
   const[users,setuser]=useState<dataobj[]>()
   const navigate=useNavigate()
  let timeid:number;
@@ -28,7 +30,7 @@ const DashBoard = () => {
       headers:{
         token:localStorage.getItem("token")
       }
-    }).then(res=>setbalance(res.data.balance))
+    }).then(res=>setuseraccount(res.data))
   },[])
   useEffect(()=>{
     if(value){
@@ -50,9 +52,9 @@ const DashBoard = () => {
   },[value])
   return (
     <>
-      <NavBar />
+      <NavBar firstName={firstName}/>
       <div className="p-4 text-xl">
-        <div>Your Balance:{`$${balance}`}</div>
+        <div>Your Balance:{`$${useraccount.balance}`}</div>
         <div className="font-bold">Users</div>
         <div className="m-2">
           <Inputfield
@@ -66,7 +68,7 @@ const DashBoard = () => {
 
         {/* all-user */}
         <div>
-          {users?.map((user) => (
+          {value && users?.map((user) => (
             <div
               key={user.id}
               className="flex justify-between p-2 items-center"
