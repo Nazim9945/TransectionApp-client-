@@ -23,7 +23,7 @@ const SignIn = () => {
     const res=await fetch(`${commonUrl}/user/signin`,options)
     const data=await res.json()
     localStorage.setItem("token","Bearer " + data.token)
-    navigate(`/dashboard?Hi=${data.firstName}`);
+    navigate(`/dashboard`);
   }
   return (
     <>

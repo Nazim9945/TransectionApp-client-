@@ -1,9 +1,9 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import Avatar from "../components/Avatar";
 import Button from "../components/Button";
-import Inputfield from "../components/Inputfield";
+import Inputfield from "../components/Inputfield"
 import NavBar from "../components/NavBar";
-import {  useNavigate, useSearchParams } from "react-router-dom";
+import {   useNavigate} from "react-router-dom";
 import axios from "axios";
 import { commonUrl } from "../config/commonUrl";
 interface dataobj{
@@ -16,21 +16,25 @@ interface fetchResponseUser{
 }
 interface userbalance{
   balance:string,
+  firstName:string
 }
 const DashBoard = () => {
+  const navigate = useNavigate();
   const[value,setValue]=useState("")
-  const[searchParams]=useSearchParams()
-  const firstName=searchParams.get("Hi") || ""
   const[useraccount,setuseraccount]=useState<userbalance>({} as userbalance)
   const[users,setuser]=useState<dataobj[]>()
-  const navigate=useNavigate()
+ 
  let timeid:number;
   useEffect(()=>{
     axios.get<userbalance>(`${commonUrl}/account/balance`,{
       headers:{
         token:localStorage.getItem("token")
       }
-    }).then(res=>setuseraccount(res.data))
+    }).then(res=>(
+      console.log(res.data),
+
+      setuseraccount(res.data)
+    ))
   },[])
   useEffect(()=>{
     if(value){
@@ -52,7 +56,7 @@ const DashBoard = () => {
   },[value])
   return (
     <>
-      <NavBar firstName={firstName}/>
+      <NavBar firstName={useraccount.firstName}/>
       <div className="p-4 text-xl">
         <div>Your Balance:{`$${useraccount.balance}`}</div>
         <div className="font-bold">Users</div>

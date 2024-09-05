@@ -5,7 +5,7 @@ interface Props{
 const Button = ({label,onsubmit}:Props) => {
   return (
    
-        <button onClick={()=>onsubmit()} className="bg-black text-white p-2 font-semibold rounded-md">
+        <button type="submit" onClick={()=>onsubmit()} className="bg-black text-white p-2 font-semibold rounded-md">
             {label}
         </button>
     
