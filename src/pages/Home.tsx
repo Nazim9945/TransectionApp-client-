@@ -7,13 +7,14 @@ const Home = () => {
         <p className="text-2xl font-semibold">Payments</p>
         <div className="flex justify-between items-center p-2 gap-2">
           <button className="bg-black p-2 rounded-md text-white">
-            <Link to={'/signin'}>Login</Link>
+            <Link to={"/signin"}>Login</Link>
+          </button>
+          <button className="bg-black p-2 rounded-md text-white">
+            <Link to={"/signup"}>Register</Link>
           </button>
         </div>
       </div>
-      <div className="text-4xl m-auto">
-        Make Your Transection Easy
-      </div>
+      <div className="text-4xl m-auto">Make Your Transection Easy</div>
     </div>
   );
 }
