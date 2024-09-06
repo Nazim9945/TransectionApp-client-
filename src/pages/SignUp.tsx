@@ -5,8 +5,11 @@ import Inputfield from "../components/Inputfield"
 import {  useNavigate } from "react-router-dom";
 import axios from "axios";
 import { commonUrl } from "../config/commonUrl";
+import ButtonWaiting from "../components/ButtonWaiting";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
+  const[loading,setLoading]=useState(false)
   const navigate=useNavigate()
   const[formdata,setFormdata]=useState({
     firstName:"",lastName:"",email:"",password:""
@@ -52,15 +55,23 @@ const SignUp = () => {
             type="password"
           />
         </div>
-        <Button
-          onsubmit={() =>
-            axios.post(`${commonUrl}/user/signup`, formdata).then((res) => {
-              localStorage.setItem("token", "Bearer " + res.data.token);
-              navigate(`/dashboard`);
-            })
-          }
-          label="Signup"
-        />
+        {loading ? (
+          <ButtonWaiting />
+        ) : (
+          <Button
+            onsubmit={() => {
+              setLoading(true);
+              axios.post(`${commonUrl}/user/signup`, formdata).then((res) => {
+                localStorage.setItem("token", "Bearer " + res.data.token);
+                setLoading(false);
+                toast("Registered Successfully")
+                navigate(`/dashboard`);
+
+              });
+            }}
+            label="Signup"
+          />
+        )}
         <BottomWarning label="Signin" />
       </div>
     </div>

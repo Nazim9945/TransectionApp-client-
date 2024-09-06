@@ -1,9 +1,10 @@
 
+
 const Avatar = ({latter}:{latter:string}) => {
   return (
-    <span className="rounded-full text-white bg-black font-semibold p-1 m-2">
-     {latter}
-    </span>
+    <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden  rounded-full bg-gray-400 ml-2 mr-2">
+      <span className="font-medium text-gray-600">{latter}</span>
+    </div>
   );
 }
 

@@ -19,6 +19,7 @@ interface userbalance{
   firstName:string
 }
 const DashBoard = () => {
+  const[loading,setLoading]=useState(false)
   const navigate = useNavigate();
   const[value,setValue]=useState("")
   const[useraccount,setuseraccount]=useState<userbalance>({} as userbalance)
@@ -26,13 +27,14 @@ const DashBoard = () => {
  
  let timeid:number;
   useEffect(()=>{
+    setLoading(true)
     axios.get<userbalance>(`${commonUrl}/account/balance`,{
       headers:{
         token:localStorage.getItem("token")
       }
     }).then(res=>(
       console.log(res.data),
-
+setLoading(false),
       setuseraccount(res.data)
     ))
   },[])
@@ -56,10 +58,10 @@ const DashBoard = () => {
   },[value])
   return (
     <>
-      <NavBar firstName={useraccount.firstName}/>
+      <NavBar firstName={useraccount.firstName} />
       <div className="p-4 text-xl">
-        <div>Your Balance:{`$${useraccount.balance}`}</div>
-        <div className="font-bold">Users</div>
+        <div>Your Balance:{loading?" Fetching Money...":` Rs ${useraccount.balance}`}</div>
+        <div className="font-semibold mt-2">Users</div>
         <div className="m-2">
           <Inputfield
             onhandler={(e: ChangeEvent<HTMLInputElement>) =>
@@ -72,28 +74,31 @@ const DashBoard = () => {
 
         {/* all-user */}
         <div>
-          {value && users?.map((user) => (
-            <div
-              key={user.id}
-              className="flex justify-between p-2 items-center"
-            >
-              <div className="flex gap-2 items-center">
-                <Avatar latter={user?.firstName[0].toUpperCase()} />
-                <div>{user?.firstName.toUpperCase()}</div>
-                <div>{user?.lastName.toUpperCase()}</div>
+          {value &&
+            users?.map((user) => (
+              <div
+                key={user.id}
+                className="flex justify-between p-2 items-center"
+              >
+                <div className="flex gap-2 items-center">
+                 
+                    <Avatar latter={user?.firstName[0].toUpperCase()} />
+                  
+                  <div>{user?.firstName.toUpperCase()}</div>
+                  <div>{user?.lastName.toUpperCase()}</div>
+                </div>
+                <div>
+                  <Button
+                    onsubmit={() =>
+                      navigate(
+                        `/transfer?id=${user.id}&&firstName=${user.firstName}`
+                      )
+                    }
+                    label="Send Money"
+                  />
+                </div>
               </div>
-              <div>
-                <Button
-                  onsubmit={() =>
-                    navigate(
-                      `/transfer?id=${user.id}&&firstName=${user.firstName}`
-                    )
-                  }
-                  label="Send Money"
-                />
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </>
