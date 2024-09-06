@@ -13,7 +13,7 @@ const NavBar = ({firstName}:{firstName:string}) => {
           <Avatar latter={firstName?.[0]} />
           <LogOut
             onPress={() => {
-              localStorage.setItem("token", "");
+             localStorage.removeItem("token");
               navigate('/')
             }}
           />

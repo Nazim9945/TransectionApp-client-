@@ -55,7 +55,8 @@ const SignUp = () => {
       />
       <BottomWarning label="Signin" />
       <Button onsubmit={()=>(
-      axios.post(`${commonUrl}/user/signup`,formdata).then(()=>{
+      axios.post(`${commonUrl}/user/signup`,formdata).then((res)=>{
+        localStorage.setItem("token", "Bearer " + res.data.token);
         navigate(`/dashboard`)
       })
        

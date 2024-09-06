@@ -15,8 +15,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route  element={<ProtectedRoute />}>
-          <Route path="dashboard" element={<DashBoard />} />
-          <Route path="transfer" element={<Transfer />} />
+          <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/transfer" element={<Transfer />} />
         </Route>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
