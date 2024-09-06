@@ -27,8 +27,8 @@ const SignIn = () => {
   }
   return (
     <div className="h-screen flex flex-col justify-center items-center">
-      <div className="w-[300px] border-2 border-black flex flex-col justify-center gap-10 p-3 items-center bg-slate-200 rounded-md">
-        <div className="font-bold text-3xl">Sign In</div>
+      <div className="w-[400px] border-2 border-black  gap-16 p-3  bg-slate-200 rounded-md">
+        <div className="font-bold text-3xl text-center">Sign In</div>
         <div className="w-full space-y-2">
           <Inputfield
             onhandler={(e: React.ChangeEvent<HTMLInputElement>) =>
