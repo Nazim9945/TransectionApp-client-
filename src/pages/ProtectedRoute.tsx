@@ -5,6 +5,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { commonUrl } from "../config/commonUrl";
 import axios from "axios";
+import Spinner from "../components/Spinner";
 
 
 
@@ -26,7 +27,9 @@ useEffect(() => {
     return <Outlet/>
  }
  else if(data===false) return <Navigate to={'/'}/>
- return <>Loding...</>
+ return <>
+ <Spinner/>
+ </>
 }
 
 export default ProtectedRoute
