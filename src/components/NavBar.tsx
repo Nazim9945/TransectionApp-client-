@@ -19,12 +19,14 @@ const NavBar = ({firstName}:{firstName:string}) => {
             {first.toUpperCase()}
             <span>{firstName?.slice(1)}</span>
           </span>
-          <Avatar latter={firstName?.[0].toUpperCase()} />
+          <Link to={`/mepoint?name=${firstName}`}>
+            <Avatar latter={firstName?.[0].toUpperCase()} />
+          </Link>
           <LogOut
             onPress={() => {
               localStorage.removeItem("token");
               navigate("/");
-              toast("You've logged out!")
+              toast("You've logged out!");
             }}
           />
         </div>
