@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const BottomWarning = ({label}:{label:string}) => {
   return (
     <div>
-      {label !== "Signin" ? "Did'nt have account" : "Already have an account"}?
+      {label !== "Signin" ? "Don't have an account" : "Already have an account"}?
       <Link to={`/${label}`}>
         <span className="underline">{label}</span>
       </Link>

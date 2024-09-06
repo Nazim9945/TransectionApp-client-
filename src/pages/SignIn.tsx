@@ -26,32 +26,34 @@ const SignIn = () => {
     navigate(`/dashboard`);
   }
   return (
-    <>
-      <div>SignIn</div>
-      <Inputfield
-        onhandler={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setFormData({ ...formdata, [e.target.name]: e.target.value })
-        }
-        label="Email"
-        type="text"
-        placeholder="abc@gmail.com"
-        name="email"
-        
-      />
-      <Inputfield
-        onhandler={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setFormData({ ...formdata, [e.target.name]: e.target.value })
-        }
-        label="password"
-        type="password"
-        name="password"
-        
-      />
-      <BottomWarning label="Signup" />
-      <Button onsubmit={()=>(
-      signinfunction()
-      )} label="Signin" />
-    </>
+    <div className="h-screen flex flex-col justify-center items-center">
+      <div className="w-[300px] border-2 border-black flex flex-col justify-center gap-10 p-3 items-center bg-slate-200 rounded-md">
+        <div className="font-bold text-3xl">Sign In</div>
+        <div className="w-full space-y-2">
+          <Inputfield
+            onhandler={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setFormData({ ...formdata, [e.target.name]: e.target.value })
+            }
+            label="Email"
+            type="text"
+            placeholder="abc@gmail.com"
+            name="email"
+          />
+          <Inputfield
+            onhandler={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setFormData({ ...formdata, [e.target.name]: e.target.value })
+            }
+            label="password"
+            type="password"
+            name="password"
+          />
+        </div>
+        <div className="min-w-full">
+          <Button onsubmit={() => signinfunction()} label="Signin" />
+        </div>
+        <BottomWarning label="Signup" />
+      </div>
+    </div>
   );
 }
 

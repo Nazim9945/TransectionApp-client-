@@ -12,10 +12,10 @@ const Inputfield = ({label,type,placeholder,onhandler,name}:Props) => {
     <div>
       <form>
         <label>
-          <div>{label}</div>
+          <div className="font-semibold">{label}</div>
           <input
             onChange={(e) => onhandler(e)}
-            className="outline"
+            className="w-full rounded-md p-2 mt-2"
             type={type}
             placeholder={placeholder}
             name={name}
