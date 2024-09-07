@@ -6,31 +6,31 @@ import { commonUrl } from "../config/commonUrl";
 import { useNavigate } from "react-router-dom";
 import ButtonWaiting from "../components/ButtonWaiting";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 
 
 const SignIn = () => {
+  const[isAvailable,setisAvailable]=useState("")
   const[loading,setLoading]=useState(false)
   const navigate=useNavigate()
   const[formdata,setFormData]=useState({
     email:"", password:""
   })
-  const options = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formdata),
-  };
+ 
   const signinfunction=async()=>{
     setLoading(true)
-    const res=await fetch(`${commonUrl}/user/signin`,options)
-    const data=await res.json()
-    localStorage.setItem("token","Bearer " + data.token)
-    setLoading(false)
-    toast("Logged in successfully")
-    navigate(`/dashboard`);
-
+    axios.post(`${commonUrl}/user/signin`,formdata).then((res)=>{
+      setLoading(false)
+      localStorage.setItem("token", "Bearer " + res.data.token);
+      toast("Logged in successfully");
+      navigate(`/dashboard`);
+    }).catch(error=>{
+      setLoading(false);
+       setisAvailable(error?.response?.data?.msg);
+      console.log(error?.response?.data);
+    });
+ 
   }
   return (
     <div className="h-screen flex flex-col justify-center items-center">
@@ -55,6 +55,11 @@ const SignIn = () => {
             name="password"
           />
         </div>
+        {isAvailable.length > 0 && (
+          <div className="text-red-800 font-light italic underline">
+            {isAvailable}
+          </div>
+        )}
         <div className="min-w-full">
           {loading ? (
             <ButtonWaiting />
