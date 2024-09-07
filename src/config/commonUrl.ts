@@ -1,1 +1,1 @@
-export const commonUrl="http://localhost:3000/api/v1"
+export const commonUrl = "https://transectionapp-api.onrender.com";
